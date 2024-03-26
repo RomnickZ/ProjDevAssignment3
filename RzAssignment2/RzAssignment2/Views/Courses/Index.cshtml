@@ -1,0 +1,38 @@
+﻿@model IEnumerable<RzAssignment2.Models.Course>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Courses</h1>
+
+<p>
+    <a asp-controller="Courses" asp-action="Create">Add New Course</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Instructor</th>
+            <th>Start Date</th>
+            <th>Room #</th>
+            <th># of Students</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Instructor</td>
+                <td>@item.StartDate</td>
+                <td>@item.RoomNumber</td>
+                <td>@item.StudentCount</td>
+                <td>
+                    <a asp-action="Manage" asp-route-id="@item.Id">Manage</a> | <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

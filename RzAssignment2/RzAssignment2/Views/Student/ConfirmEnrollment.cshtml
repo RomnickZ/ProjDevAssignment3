@@ -1,0 +1,16 @@
+﻿@model RzAssignment2.Models.Student
+@{
+    ViewData["Title"] = "ConfirmEnrollment";
+}
+
+<h1>Confirm Enrollment</h1>
+
+<form asp-action="SubmitConfirmation" asp-controller="Student" method="post">
+    <div class="form-group">
+        <label>Confirmation:</label>
+        <input type="radio" name="confirmationStatus" value="EnrollmentConfirmed" /> Confirm Enrollment
+        <input type="radio" name="confirmationStatus" value="EnrollmentDeclined" /> Decline Enrollment
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Response</button>
+</form>

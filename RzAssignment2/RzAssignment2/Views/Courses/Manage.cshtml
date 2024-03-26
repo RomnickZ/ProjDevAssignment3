@@ -1,0 +1,61 @@
+﻿@using RzAssignment2.Models;
+@model CourseSummary
+
+@{
+    ViewData["Title"] = "Manage";
+}
+
+<h1>Manage your Course</h1>
+<p>
+    <a asp-controller="Courses" asp-action="Index">All Courses</a> | <a asp-controller="Courses" asp-action="Create">Add New Course</a>
+</p>
+
+<h4>Course Summary</h4>
+
+<p>The course, "@Model.Course.Name" is in Room @Model.Course.RoomNumber starting on @Model.Course.StartDate.ToShortDateString() and the Instructor is "@Model.Course.Instructor"</p>
+
+<p>Sent Inivitations: @Model.InvitesSentCount | Confirmed Invitations: @Model.ConfirmedCount | Declined Invitations: @Model.DeclinedCount</p>
+
+<h2>Students:</h2>
+
+<!-- Display Table -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Enrollment Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model.Course.Students)
+        {
+            <tr>
+                <td>@student.Name</td>
+                <td>@student.Email</td>
+                <td>@student.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Add Student</h3>
+
+<form asp-action="CreateStudent" asp-route-courseId="@Model.Course.Id">
+    <div class="form-group">
+        <label asp-for="Student.Name">Name:</label>
+        <input asp-for="Student.Name" class="form-control" />
+        <span asp-validation-for="Student.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Student.Email">Email:</label>
+        <input asp-for="Student.Email" class="form-control" />
+        <span asp-validation-for="Student.Email" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Student</button>
+</form>
+
+<p>Actions:</p>
+<form asp-action="SendConfirmationEmail" asp-controller="Course" method="post">
+    <button type="submit" class="btn btn-primary">Send Confirmation Email</button>
+</form>
